@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import math
 
 #Calcula a distancia de Minkowski
 def dist_Minkowski(X, Y, p):
@@ -16,9 +17,25 @@ def matriz_dist(S, p):
     return matriz
 
 #Acha o maior raio entre um ponto e um centro
-def maior_raio(matriz_dist, i_centros):
+def maior_distancia(matriz_dist, i_centros):
+    ponto_distante = 0
+    maior_raio = 0
+    t = matriz_dist.shape[0]
 
-    #return ponto
+    for i in range(t):
+        distancia = math.inf
+    
+        #Encontra a distancia entre o ponto e o seu centro
+        for j in range(len(i_centros)):
+            if matriz_dist[i][i_centros[j]] < distancia:
+                distancia = matriz_dist[i][i_centros[j]]
+
+        if distancia > maior_raio:
+            #Substitui o maior raio até agora pela distancia encontrada
+            maior_raio = distancia
+            ponto_distante = i
+
+    return ponto_distante
 
 #Algoritmo 2-aproximado para o problema dos k-centros
 def k_centros(S, k, p):
@@ -37,8 +54,8 @@ def k_centros(S, k, p):
         i_centros.append(primeiro_centro)
 
         #Adiciona recursivamente o ponto mais distante dos centros
-        while len(i_centros) < k:
-            novo_centro = maior_raio(distancias, i_centros)
+        for i in range (k-1):
+            novo_centro = maior_distancia(distancias, i_centros)
             i_centros.append(novo_centro)
 
     #Cria o conjunto solucao 
