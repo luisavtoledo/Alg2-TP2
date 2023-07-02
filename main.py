@@ -15,10 +15,10 @@ def matriz_dist(S, p):
             matriz[i][j] = dist_Minkowski(S[i], S[j], p)
     return matriz
 
-#Maior raio
-def maior_raio(matriz_dist, centros):
+#Acha o maior raio entre um ponto e um centro
+def maior_raio(matriz_dist, i_centros):
 
-
+    #return ponto
 
 #Algoritmo 2-aproximado para o problema dos k-centros
 def k_centros(S, k, p):
@@ -31,14 +31,20 @@ def k_centros(S, k, p):
     if k >= t:
         return S
     else:
-        #Cria o conjunto solucao e adiciona um ponto arbitrario
-        centros = np.array([])
+        #Cria o conjunto com indices da solucao e adiciona um ponto arbitrario
+        i_centros = np.array([])
         primeiro_centro = np.random.randint(0, t)
-        centros.append(primeiro_centro)
+        i_centros.append(primeiro_centro)
 
         #Adiciona recursivamente o ponto mais distante dos centros
-        while len(centros) < k:
-            novo_centro = maior_raio(distancias, centros)
-            centros.append(novo_centro)
+        while len(i_centros) < k:
+            novo_centro = maior_raio(distancias, i_centros)
+            i_centros.append(novo_centro)
 
-        return centros
+    #Cria o conjunto solucao 
+    centros = np.array([])
+    for i in range(len(i_centros)):
+        indice = i_centros[i]
+        centros.append(S[indice])
+
+    return centros
