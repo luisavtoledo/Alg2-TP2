@@ -4,7 +4,7 @@ import math
 
 #Calcula a distancia de Minkowski
 def dist_Minkowski(X, Y, p):
-    somatorio = np.sum(np.power(np.abs(X - Y), p))
+    somatorio = np.sum(np.power(np.abs(np.array(X) - np.array(Y))), p)
     return np.power(somatorio, 1/p)
 
 #Computa a matriz de distancia
