@@ -37,38 +37,27 @@ def maior_distancia(matriz_dist, i_centros):
     return ponto_distante
 
 #Algoritmo 2-aproximado para o problema dos k-centros
-def k_centros(matriz_dist, k):
-
-    t = matriz_dist.shape[0]
-        
-    #Cria o conjunto com indices da solucao e adiciona um ponto arbitrario
-    i_centros = np.array([])
-    primeiro_centro = np.random.randint(0, t)
-    i_centros.append(primeiro_centro)
-
-    #Adiciona recursivamente o ponto mais distante dos centros
-    for i in range (k-1):
-        novo_centro = maior_distancia(matriz_dist, i_centros)
-        i_centros.append(novo_centro)
-
-    return i_centros
-
-#Retorna os k-centros
-def centros(S, k, p):
-
+def k_centros(matriz_dist, S, k):
+    
     #Se k for menor ou igual a quantidade de pontos, retorna o dataset
     t = S.shape[0] 
     if k >= t:
         return S
-    
     else:
-        distancias = matriz_dist(S, p)
-        i_centros = k_centros(distancias, k)
+        #Cria o conjunto com indices da solucao e adiciona um ponto arbitrario
+        i_centros = np.array([])
+        primeiro_centro = np.random.randint(0, t)
+        i_centros.append(primeiro_centro)
 
-        #Cria o conjunto solucao 
-        centros = np.array([])
-        for i in range(len(i_centros)):
-            indice = i_centros[i]
-            centros.append(S[indice])
+        #Adiciona recursivamente o ponto mais distante dos centros
+        for i in range (k-1):
+            novo_centro = maior_distancia(matriz_dist, i_centros)
+            i_centros.append(novo_centro)
+
+    #Cria o conjunto solucao 
+    centros = np.array([])
+    for i in range(len(i_centros)):
+        indice = i_centros[i]
+        centros.append(S[indice])
 
     return centros
