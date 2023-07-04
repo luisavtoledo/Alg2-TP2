@@ -1,6 +1,6 @@
 import pandas as pd
 
-#Tratamendo de dados/manipulacao dos datasets para o uso no algoritmo
+#Tratamento de dados/manipulacao dos datasets para o uso no algoritmo
 
 dataset1 = pd.read_csv("datasets/banknote.txt", header=None)
 
@@ -18,13 +18,18 @@ dataset4 = dataset4.replace(['CEMENT'], 3)
 dataset4 = dataset4.replace(['WINDOW'], 4)
 dataset4 = dataset4.replace(['PATH'], 5)
 dataset4 = dataset4.replace(['GRASS'], 6)
-#mudar colunad e lugar
+atr = dataset4.columns.tolist()
+atr = atr[1:] + [atr[0]]
+dataset4 = dataset4[atr]
 
 dataset5 = pd.read_csv("datasets/transfusion.csv", header=None)
 
 dataset6 = pd.read_csv("datasets/trial.csv", header=None)
 
-dataset7 = pd.read_csv("datasets/urbanGB.txt", header=None)
+dataset7_1 = pd.read_csv("datasets/urbanGB.txt", header=None)
+dataset7_2 = pd.read_csv("datasets/urbanGB.labels.txt", header=None)
+dataset7 = pd.concat([dataset7_1, dataset7_2], axis=1, join='inner')
+print(dataset7)
 #pegar classes e mudar valores
 
 dataset8 = pd.read_csv("datasets/winequality-red.csv", sep=';', header=None)
