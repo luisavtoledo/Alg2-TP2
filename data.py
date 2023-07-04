@@ -29,8 +29,6 @@ dataset6 = pd.read_csv("datasets/trial.csv", header=None)
 dataset7_1 = pd.read_csv("datasets/urbanGB.txt", header=None)
 dataset7_2 = pd.read_csv("datasets/urbanGB.labels.txt", header=None)
 dataset7 = pd.concat([dataset7_1, dataset7_2], axis=1, join='inner')
-print(dataset7)
-#pegar classes e mudar valores
 
 dataset8 = pd.read_csv("datasets/winequality-red.csv", sep=';', header=None)
 
