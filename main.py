@@ -67,6 +67,7 @@ dataset10 = dataset10.replace(['POX'], 8)
 dataset10 = dataset10.replace(['ERL'], 9)
 dataset10 = dataset10.drop(dataset10.columns[[0]], axis=1)
 
+#Calcula a disancia entre um ponto e seu centro
 def dist_centro(ponto, centros, p):
     menor_dist = math.inf
     i_centro = 0
@@ -80,6 +81,7 @@ def dist_centro(ponto, centros, p):
 
     return (menor_dist, i_centro)
 
+#Computa o raio final do algoritmo e a classificacao
 def metricas(pontos, centros, p):
     raio = 0
     t = pontos.shape[0]
@@ -93,11 +95,8 @@ def metricas(pontos, centros, p):
     
     return (raio, labels)
 
-
+#Funcao de testes
 def testes(dataset, p):
-    #ponos = dataset.astype(float)
-   # n_dataset = (dataset.iloc[:, 0:-1]).astype(float)
-    #pontos = pd.read_csv(dataset)
     n_pontos = (dataset.iloc[:, 0:-1]).astype(float)
     dados = (n_pontos).to_numpy()
     classes = dataset.iloc[:, -1]
@@ -170,8 +169,6 @@ def main(datasets):
         print("p = 2")
         testes(datasets[i], 2)
 
-datasets = [dataset4]
+datasets = [dataset1, dataset2, dataset3, dataset4, dataset5, dataset6, dataset7, dataset8, dataset9, dataset10]
 
 main(datasets)
-
-#datasets = [dataset1, dataset2, dataset3, dataset4, dataset5, dataset6, dataset7, dataset8, dataset9, dataset10]
