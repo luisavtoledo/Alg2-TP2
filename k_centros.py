@@ -34,7 +34,7 @@ def maior_distancia(matriz_dist, i_centros):
             maior_raio = distancia
             ponto_distante = i
 
-    return ponto_distante
+    return (ponto_distante, maior_raio)
 
 #Algoritmo 2-aproximado para o problema dos k-centros
 def k_centros(matriz_dist, S, k):
@@ -51,7 +51,7 @@ def k_centros(matriz_dist, S, k):
 
         #Adiciona recursivamente o ponto mais distante dos centros
         for i in range (k-1):
-            novo_centro = maior_distancia(matriz_dist, i_centros)
+            novo_centro = maior_distancia(matriz_dist, i_centros)[0]
             i_centros.append(novo_centro)
 
     #Cria o conjunto solucao 
@@ -60,4 +60,4 @@ def k_centros(matriz_dist, S, k):
         indice = i_centros[i]
         centros.append(S[indice])
 
-    return centros
+    return (centros, i_centros)
