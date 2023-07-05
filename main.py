@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import math
-from k_centros import *
+from k_centros import matriz_dist, k_centros, dist_Minkowski, maior_distancia
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, adjusted_rand_score
 import time
@@ -105,7 +105,7 @@ def testes(dataset, p):
 
     for i in range(30):
         inicio = time.time()
-        labels, i_centros = k_centros(matriz, dataset, k)
+        labels, i_centros = k_centros(matriz, dados, k)
         raio = maior_distancia(matriz, pd.DataFrame(i_centros))[1]
         sil = silhouette_score(dados, labels)
         rand = adjusted_rand_score(classes, labels)
