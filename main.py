@@ -6,6 +6,57 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, adjusted_rand_score
 import time
 
+#Tratamento de dados/manipulacao dos datasets para o uso no algoritmo
+
+dataset1 = pd.read_csv("datasets/banknote.txt", header=None)
+dataset1 = dataset1.astype(float)
+
+dataset2 = pd.read_csv("datasets/HTRU_2.csv", header=None)
+dataset2 = dataset2.astype(float)
+
+dataset3 = pd.read_csv("datasets/magic04.csv", header=None)
+dataset3 = dataset3.replace(['g'], 0)
+dataset3 = dataset3.replace(['h'], 1)
+dataset3 = dataset3.astype(float)
+
+dataset4 = pd.read_csv("datasets/segmentation.csv", header=None)
+dataset4 = dataset4.replace(['BRICKFACE'], 0)
+dataset4 = dataset4.replace(['SKY'], 1)
+dataset4 = dataset4.replace(['FOLIAGE'], 2)
+dataset4 = dataset4.replace(['CEMENT'], 3)
+dataset4 = dataset4.replace(['WINDOW'], 4)
+dataset4 = dataset4.replace(['PATH'], 5)
+dataset4 = dataset4.replace(['GRASS'], 6)
+atr = dataset4.columns.tolist()
+atr = atr[1:] + [atr[0]]
+dataset4 = dataset4[atr]
+dataset4 = dataset4.astype(float)
+
+dataset5 = pd.read_csv("datasets/transfusion.csv", header=None)
+
+dataset6 = pd.read_csv("datasets/trial.csv", header=None)
+
+dataset7_1 = pd.read_csv("datasets/urbanGB.txt", header=None)
+dataset7_2 = pd.read_csv("datasets/urbanGB.labels.txt", header=None)
+dataset7 = pd.concat([dataset7_1, dataset7_2], axis=1, join='inner')
+
+dataset8 = pd.read_csv("datasets/winequality-red.csv", sep=';', header=None)
+
+dataset9 = pd.read_csv("datasets/winequality-white.csv", sep=';', header=None)
+
+dataset10 = pd.read_csv("datasets/yeast.csv", sep='\s+', header=None)
+dataset10 = dataset10.replace(['CYT'], 0)
+dataset10 = dataset10.replace(['NUC'], 1)
+dataset10 = dataset10.replace(['MIT'], 2)
+dataset10 = dataset10.replace(['ME3'], 3)
+dataset10 = dataset10.replace(['ME2'], 4)
+dataset10 = dataset10.replace(['ME1'], 5)
+dataset10 = dataset10.replace(['EXC'], 6)
+dataset10 = dataset10.replace(['VAC'], 7)
+dataset10 = dataset10.replace(['POX'], 8)
+dataset10 = dataset10.replace(['ERL'], 9)
+dataset10 = dataset10.drop(dataset10.columns[[0]], axis=1)
+
 def dist_kmeans(ponto, centros, p):
     menor_dist = math.inf
     i_centro = 0
@@ -32,11 +83,14 @@ def raio_kmeans(pontos, centros, p):
 
 
 def testes(dataset, p):
-    dados = dataset.iloc[:, 0:-1]
-    classes = dataset.iloc[:, [-1]]
+    #ponos = dataset.astype(float)
+   # n_dataset = (dataset.iloc[:, 0:-1]).astype(float)
+    #pontos = pd.read_csv(dataset)
+    n_pontos = (dataset.iloc[:, 0:-1]).astype(float)
+    dados = (n_pontos).to_numpy()
+    classes = dataset.iloc[:, -1]
     k = classes.nunique()
-    dados = dados.to_numpy
-
+    
     #Armazenando metricas
     tempo_kcentros = []
     raio_kcentros = []
@@ -47,12 +101,12 @@ def testes(dataset, p):
     silhouette_kmeans = []
     rand_kmeans = []
 
-    matriz_dist = matriz_dist(dados, p)
+    matriz = matriz_dist(n_pontos, p)
 
     for i in range(30):
         inicio = time.time()
-        labels, i_centros = k_centros(matriz_dist, dados, k)
-        raio = maior_distancia(matriz_dist, i_centros)[1]
+        labels, i_centros = k_centros(matriz, dataset, k, p)
+        raio = maior_distancia(matriz, pd.DataFrame(i_centros))[1]
         sil = silhouette_score(dados, labels)
         rand = adjusted_rand_score(classes, labels)
         raio_kcentros.append(raio)
@@ -99,3 +153,5 @@ def main(dataset):
     testes(dataset, 1)
     print("p = 2")
     testes(dataset, 2)
+
+main(dataset4)

@@ -3,12 +3,15 @@ import pandas as pd
 #Tratamento de dados/manipulacao dos datasets para o uso no algoritmo
 
 dataset1 = pd.read_csv("datasets/banknote.txt", header=None)
+dataset1 = dataset1.astype(float)
 
 dataset2 = pd.read_csv("datasets/HTRU_2.csv", header=None)
+dataset2 = dataset2.astype(float)
 
 dataset3 = pd.read_csv("datasets/magic04.csv", header=None)
 dataset3 = dataset3.replace(['g'], 0)
 dataset3 = dataset3.replace(['h'], 1)
+dataset3 = dataset3.astype(float)
 
 dataset4 = pd.read_csv("datasets/segmentation.csv", header=None)
 dataset4 = dataset4.replace(['BRICKFACE'], 0)
@@ -21,6 +24,7 @@ dataset4 = dataset4.replace(['GRASS'], 6)
 atr = dataset4.columns.tolist()
 atr = atr[1:] + [atr[0]]
 dataset4 = dataset4[atr]
+dataset4 = dataset4.astype(float)
 
 dataset5 = pd.read_csv("datasets/transfusion.csv", header=None)
 
