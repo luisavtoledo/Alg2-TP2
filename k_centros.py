@@ -1,5 +1,4 @@
 import numpy as np
-import math
 
 #Calcula a distancia de Minkowski
 def dist_Minkowski(X, Y, p):
@@ -20,14 +19,16 @@ def maior_distancia(matriz_dist, i_centros):
     ponto_distante = 0
     maior_raio = 0
     t = matriz_dist.shape[0]
+    distancia = 0
 
     for i in range(t):
-        distancia = math.inf
+        distancia = float('inf')
     
         #Encontra a distancia entre o ponto e o seu centro
         for j in range(len(i_centros)):
-            if matriz_dist[i][i_centros[j]] < distancia:
-                distancia = matriz_dist[i][i_centros[j]]
+            valor = i_centros[j]
+            if matriz_dist[i][valor] < distancia:
+                distancia = matriz_dist[i][valor]
 
         if distancia > maior_raio:
             #Substitui o maior raio até agora pela distancia encontrada
@@ -60,4 +61,4 @@ def k_centros(matriz_dist, S, k):
         indice = i_centros[i]
         centros.append(S[indice])
 
-    return (centros, i_centros)
+    return (np.array(centros), i_centros)
