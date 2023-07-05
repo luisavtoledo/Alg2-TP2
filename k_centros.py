@@ -3,7 +3,7 @@ import math
 
 #Calcula a distancia de Minkowski
 def dist_Minkowski(X, Y, p):
-    somatorio = np.sum(np.power(np.abs(np.array(X) - np.array(Y))), p)
+    somatorio = np.sum(np.power(np.abs(np.array(X) - np.array(Y)), p))
     return np.power(somatorio, 1/p)
 
 #Computa a matriz de distancia
@@ -12,7 +12,7 @@ def matriz_dist(S, p):
     matriz = np.zeros((t, t))
     for i in range(t):
         for j in range(t):
-            matriz[i][j] = dist_Minkowski(S[i], S[j], p)
+            matriz[i][j] = dist_Minkowski(S.iloc[i], S.iloc[j], p)
     return matriz
 
 #Acha o maior raio entre um ponto e um centro
@@ -45,7 +45,7 @@ def k_centros(matriz_dist, S, k):
         return S
     else:
         #Cria o conjunto com indices da solucao e adiciona um ponto arbitrario
-        i_centros = np.array([])
+        i_centros = []
         primeiro_centro = np.random.randint(0, t)
         i_centros.append(primeiro_centro)
 
@@ -55,7 +55,7 @@ def k_centros(matriz_dist, S, k):
             i_centros.append(novo_centro)
 
     #Cria o conjunto solucao 
-    centros = np.array([])
+    centros = []
     for i in range(len(i_centros)):
         indice = i_centros[i]
         centros.append(S[indice])

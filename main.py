@@ -105,7 +105,7 @@ def testes(dataset, p):
 
     for i in range(30):
         inicio = time.time()
-        labels, i_centros = k_centros(matriz, dataset, k, p)
+        labels, i_centros = k_centros(matriz, dataset, k)
         raio = maior_distancia(matriz, pd.DataFrame(i_centros))[1]
         sil = silhouette_score(dados, labels)
         rand = adjusted_rand_score(classes, labels)
